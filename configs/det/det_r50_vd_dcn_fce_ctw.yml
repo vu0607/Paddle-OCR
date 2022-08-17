@@ -1,15 +1,15 @@
 Global:
   use_gpu: true
-  epoch_num: 1500
+  epoch_num: 100
   log_smooth_window: 20
   print_batch_step: 20
-  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/save_model/model_V1.1
+  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/save_model/model_V1.0.1
   save_epoch_step: 100
   # evaluation is run every 835 iterations
   eval_batch_step: [0, 835]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: /content/gdrive/MyDrive/AI.VuDN/save_model/model_V1/best_accuracy.pdparams
+  checkpoints: /content/gdrive/MyDrive/AI.VuDN/save_model/model_V1.0.0/best_accuracy
   save_inference_dir: 
   use_visualdl: False
   infer_img: doc/imgs_en/img_10.jpg
@@ -105,15 +105,15 @@ Train:
   loader:
     shuffle: True
     drop_last: False
-    batch_size_per_card: 10
-    num_workers: 8
+    batch_size_per_card: 8
+    num_workers: 16
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /content/PaddleOCR/train_data/dataset
+    data_dir: /content/dataset
     label_file_list:
-      - /content/PaddleOCR/train_data/dataset/val.txt
+      - /content/dataset/val.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
