@@ -1,15 +1,15 @@
 Global:
   use_gpu: true
-  epoch_num: 600
+  epoch_num: 100
   log_smooth_window: 20
-  print_batch_step: 10
-  save_model_dir: ./output/det_r50_vd_pse/
-  save_epoch_step: 600
+  print_batch_step: 2
+  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/save_model/V3.0.1
+  save_epoch_step: 100
   # evaluation is run every 125 iterations
-  eval_batch_step: [ 0,125 ]
+  eval_batch_step: [ 0, 2000 ]
   cal_metric_during_train: False
-  pretrained_model: ./pretrain_models/ResNet50_vd_ssld_pretrained
-  checkpoints: #./output/det_r50_vd_pse_batch8_ColorJitter/best_accuracy
+  pretrained_model: 
+  checkpoints: /content/gdrive/MyDrive/AI.VuDN/save_model/V3.0.0/latest
   save_inference_dir:
   use_visualdl: False
   infer_img: doc/imgs_en/img_10.jpg
@@ -65,9 +65,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ./train_data/icdar2015/text_localization/
+    data_dir: /content/dataset
     label_file_list:
-      - ./train_data/icdar2015/text_localization/train_icdar2015_label.txt
+      - /content/dataset/train.txt
     ratio_list: [ 1.0 ]
     transforms:
       - DecodeImage: # load image
@@ -82,6 +82,9 @@ Train:
             - { 'type': Resize, 'args': { 'size': [ 0.5, 3 ] } }
             - { 'type': Fliplr, 'args': { 'p': 0.5 } }
             - { 'type': Affine, 'args': { 'rotate': [ -10, 10 ] } }
+            - { 'type': MotionBlur, 'args': { 'k': [5, 11], 'angle': [0, 360] } }
+            - { 'type': GaussianBlur, 'args': { 'sigma': [0.5, 2.5] } }
+            - { 'type': GammaContrast, 'args': { 'gamma': [0.5, 2.5] , 'per_channel': True } }
       - MakePseGt:
           kernel_num: 7
           min_shrink_ratio: 0.4
@@ -107,9 +110,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ./train_data/icdar2015/text_localization/
+    data_dir: /content/dataset
     label_file_list:
-      - ./train_data/icdar2015/text_localization/test_icdar2015_label.txt
+      - /content/dataset/val.txt
     ratio_list: [ 1.0 ]
     transforms:
       - DecodeImage: # load image
