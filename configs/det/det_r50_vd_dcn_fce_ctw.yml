@@ -3,13 +3,13 @@ Global:
   epoch_num: 100
   log_smooth_window: 20
   print_batch_step: 20
-  save_model_dir: /content/gdrive/MyDrive/train_data/V2.0.1
+  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/save_model/V2.4.1
   save_epoch_step: 100
-  # evaluation is run every 835 iterations
-  eval_batch_step: [0, 835]
+  # evaluation is run every 4000 iterations
+  eval_batch_step: [0, 4000]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: /content/gdrive/MyDrive/train_data/V2.0.0/latest
+  checkpoints: /content/gdrive/MyDrive/AI.VuDN/save_model/V2.4.0/latest
   save_inference_dir: 
   use_visualdl: False
   infer_img: doc/imgs_en/img_10.jpg
@@ -117,7 +117,7 @@ Eval:
     name: SimpleDataSet
     data_dir: /content/dataset
     label_file_list:
-      - /content/dataset/val.txt
+      - /content/dataset/annotations.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -140,4 +140,4 @@ Eval:
     shuffle: False
     drop_last: False
     batch_size_per_card: 1 # must be 1
-    num_workers: 2
+    num_workers: 4
