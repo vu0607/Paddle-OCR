@@ -54,7 +54,7 @@ PostProcess:
   alpha: 1.0
   beta: 1.0
   fourier_degree: 5
-  box_type: 'poly'
+  box_type: 'q'
 
 Metric:
   name: DetFCEMetric
