@@ -72,6 +72,14 @@ Train:
           channel_first: False
           ignore_orientation: True
       - DetLabelEncode: # Class handling label
+      - IaaAugment:
+          augmenter_args:
+            - { 'type': Fliplr, 'args': { 'p': 0.25 } }
+            - { 'type': Affine, 'args': { 'rotate': [-10, 10] } }
+            - { 'type': Resize, 'args': { 'size': [0.5, 3] } }
+            - { 'type': MotionBlur, 'args': { 'k': [5, 11], 'angle': [0, 360] } }
+            - { 'type': GaussianBlur, 'args': { 'sigma': [0.5, 2.5] } }
+            - { 'type': GammaContrast, 'args': { 'gamma': [0.5, 2.5] , 'per_channel': True } }
       - ColorJitter: 
           brightness: 0.142
           saturation: 0.5
@@ -89,13 +97,6 @@ Train:
       - SquareResizePad:
           target_size: 800
           pad_ratio: 0.6
-      - IaaAugment:
-          augmenter_args:
-            - { 'type': Fliplr, 'args': { 'p': 0.25 } }
-            - { 'type': Affine, 'args': { 'rotate': [-10, 10] } }
-            - { 'type': MotionBlur, 'args': { 'k': [5, 11], 'angle': [0, 360] } }
-            - { 'type': GaussianBlur, 'args': { 'sigma': [0.5, 2.5] } }
-            - { 'type': GammaContrast, 'args': { 'gamma': [0.5, 2.5] , 'per_channel': True } }
       - FCENetTargets:
           fourier_degree: 5
       - NormalizeImage:
